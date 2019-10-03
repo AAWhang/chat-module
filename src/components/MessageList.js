@@ -30,7 +30,7 @@ class MessagesList extends Component {
           {this.props.messages.map((message, index) => (
               <li key={index} style={styles.li}>
                 <div>
-                  <span styles={styles.senderUsername}>{message.senderId}</span>{' '}
+                  <span style={styles.senderUsername}>{message.senderId}</span>{' '}
                 </div>
                 <p style={styles.message}>{message.text}</p>
               </li>
