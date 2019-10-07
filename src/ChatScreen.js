@@ -41,7 +41,7 @@ class ChatScreen extends Component {
   }
 
   publish() {
-    this.state.messages.map(x => this.state.publish += x.text)
+    this.state.messages.map(x => this.state.publish += x.text + '\n')
     console.log(this.state.publish)
   }
 
