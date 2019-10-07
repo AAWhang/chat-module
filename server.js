@@ -5,7 +5,7 @@ const Chatkit = require('@pusher/chatkit-server')
 
 const app = express()
 
-const chatKit = new Chatkit.default({
+const chatkit = new Chatkit.default({
   instanceLocator: 'v1:us1:d0a4e50e-9112-498d-abe9-b479af956a79',
   key: 'd039c6e8-45b7-44ef-b34e-6e5bf6780c29:GfcJe4faOfrdMsQ12GeNIozHjZPcrna3f5v3YJ4Tl+Y='
 })

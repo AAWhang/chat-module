@@ -31,12 +31,12 @@ class ChatScreen extends Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: 'v1:us1:d0a4e50e-9112-498d-abe9-b479af956a79',
       userId: this.props.currentUsername,
       tokenProvider: new Chatkit.TokenProvider({
-        url: 'http://localhost:3001/authenticate',
+        url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/d0a4e50e-9112-498d-abe9-b479af956a79/token',
       }),
     })
 
