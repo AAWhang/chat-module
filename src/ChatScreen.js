@@ -3,6 +3,7 @@ import Chatkit from '@pusher/chatkit-client'
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import TypingIndicator from './components/TypingIndicator'
+import WhosOnlineList from './components/WhosOnlineList'
 
 class ChatScreen extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class ChatScreen extends Component {
       currentUser: {},
       currentRoom: {},
       messages: [],
-      usersWhoAreTyping [],
+      usersWhoAreTyping: [],
     }
       this.sendMessage = this.sendMessage.bind(this)
       this.sendTypingEvent = this.sendTypingEvent.bind(this)
@@ -60,10 +61,11 @@ class ChatScreen extends Component {
                 onUserStoppedTyping: user => {
                   this.setState({
                     usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
-                      username => username != user.name
+                      username => username !== user.name
                     ),
                   })
                 },
+                onPresenceChange: () => this.forceUpdate(),
             },
           })
       })
@@ -103,7 +105,10 @@ class ChatScreen extends Component {
       <div style={styles.container}>
         <div style={styles.chatContainer}>
           <aside style={styles.whosOnlineListContainer}>
-           <h2>Who's Online PLACEHOLDER</h2>
+            <WhosOnlineList
+              currentUser={this.state.currentUser}
+              users={this.state.currentRoom.users}
+          />
           </aside>
           <section style={styles.chatListContainer}>
             <MessageList
