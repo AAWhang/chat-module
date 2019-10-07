@@ -43,6 +43,7 @@ class ChatScreen extends Component {
   publish() {
     this.state.messages.map(x => this.state.publish += x.text + '\n')
     console.log(this.state.publish)
+    this.state.joinableRooms.map(y => console.log(y))
   }
 
   createRoom(name) {  // Rooms
