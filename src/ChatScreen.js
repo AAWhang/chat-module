@@ -16,7 +16,7 @@ class ChatScreen extends Component {
       usersWhoAreTyping: [],
       roomId: null,
       joinableRooms: [],
-      joinedRooms: [],
+      joinedRooms: {},
       publish: ''
     }
       this.sendMessage = this.sendMessage.bind(this)
@@ -41,13 +41,17 @@ class ChatScreen extends Component {
   }
 
   publish() {
+    this.state.publish = '';
     this.state.messages.map(x => this.state.publish += x.text + '\n')
     console.log(this.state.publish)
-    this.state.joinableRooms.map(y => console.log(y))
+    console.log(this.state.currentUser)
+    console.log("user.roomStore.rooms: ",this.state.currentUser.roomStore.rooms);
+    let newArr = Object.entries(this.state.currentUser.roomStore.rooms).map((e) => ( { [e[0]]: e[1] } ));
+    console.log("JoinableRooms array: ",newArr);
   }
 
   createRoom(name) {  // Rooms
-    this.currentUser.createRoom({
+    this.state.currentUser.createRoom({
         name
     })
     .then(room => this.subscribeToRoom(room.id))
@@ -55,28 +59,47 @@ class ChatScreen extends Component {
   }
 
   getRooms() {
-      this.currentUser.getRooms({})
+      this.state.currentUser.getJoinableRooms({ userId: this.state.currentUser.id })
       .then(joinableRooms => {
           this.setState({
               joinableRooms,
-              joinedRooms: this.currentUser.rooms
+              joinedRooms: this.state.currentUser.roomStore.rooms
           })
       })
       .catch(err => console.log('error on joinableRooms: ', err))
   }
 
   subscribeToRoom(roomId) {
-      this.setState({ messages: [] })
-      this.currentUser.subscribeToRoom({
-          roomId: roomId,
-          hooks: {
-              onNewMessage: message => {
-                  this.setState({
-                      messages: [...this.state.messages, message]
-                  })
-              }
-          }
+      this.setState({ messages: [],
+      roomId: roomId
       })
+      console.log(this.state.currentUser)
+      this.state.currentUser.subscribeToRoom({
+
+      roomId: roomId,
+      messageLimit: 100,
+      hooks: {
+        onMessage: message => {
+          this.setState({
+            messages: [...this.state.messages, message],
+          })
+        },
+          onUserStartedTyping: user => {
+            this.setState({
+                usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.name],
+            })
+          },
+          onUserStoppedTyping: user => {
+            this.setState({
+              usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+                username => username !== user.name
+              ),
+            })
+          },
+          onPresenceChange: () => this.forceUpdate(),
+      },
+    })
+
       .then(room => {
           this.setState({
               roomId: room.id
@@ -127,7 +150,12 @@ class ChatScreen extends Component {
           })
       })
       .then(currentRoom => {
-        this.setState({ currentRoom })
+        let newArr = Object.entries(this.state.currentUser.roomStore.rooms).map((e) => ( { [e[0]]: e[1] } ));
+
+        this.setState({ currentRoom,
+          joinableRooms: newArr,
+          joinedRooms: this.state.currentUser.roomStore.rooms,
+         })
       })
       .catch(error => console.error('error', error))
   }
@@ -166,6 +194,13 @@ class ChatScreen extends Component {
               currentUser={this.state.currentUser}
               users={this.state.currentRoom.users}
           />
+          <RoomList
+            subscribeToRoom={this.subscribeToRoom}
+            rooms={[this.state.joinableRooms]}
+            roomTest={this.state.joinedRooms}
+            // rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
+            roomId={this.state.roomId}
+            publish={this.publish} />
           </aside>
           <section style={styles.chatListContainer}>
             <MessageList
@@ -177,11 +212,6 @@ class ChatScreen extends Component {
               onSubmit={this.sendMessage}
               onChange={this.sendTypingEvent}
             />
-            <RoomList
-              subscribeToRoom={this.subscribeToRoom}
-              rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
-              roomId={this.state.roomId}
-              publish={this.publish} />
           </section>
         </div>
       </div>
