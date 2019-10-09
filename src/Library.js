@@ -1,49 +1,49 @@
 import React, {Component } from 'react'
+import LibraryHeader from './components/LibraryHeader'
+import LibraryList from './components/LibraryList'
+import LibraryStory from './components/LibraryStory'
 
 
 class StoryLibrary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bodyScreen: 'libraryList'
+      bodyScreen: 'libraryList',
+      currentStory: {}
     }
     this.backToList = this.backToList.bind(this)
+    this.setStory = this.setStory.bind(this)
+  }
+
+  setStory(story) {
+    this.setState({
+      currentStory: story,
+      bodyScreen: 'libraryStory'
+    })
   }
 
   backToList() {
     this.setState({
-      bodyScreen: 'LibraryList'
+      bodyScreen: 'libraryList'
     })
   }
 
 
   render() {
-    const styles = {
-
-    }
-
-
+    if (this.state.bodyScreen === 'libraryList') {
         return (
           <div>
-            {this.props.storyLibrary.map((x, id) => (
-              <div key={id}>
-              <h1>{x.title}</h1>
-               {x.body.split('\n').map((y, id) => {
-
-               return <p key={id}>{y}</p>})}
-               <hr />
-                           {console.log(x.body)}
-               </div>
-            ))}
-
+          <LibraryHeader backToList={this.backToList} />
+          <LibraryList stoLib={this.props.SLibrary} setStory={this.setStory} />
           </div>
-
-      )
-      //       if (this.state.bodyScreen === 'LibraryList') {
-      // }
-      // if (this.state.bodyScreen === 'StoryScreen') {
-      //
-      // }
+      )}
+    else if (this.state.bodyScreen === 'libraryStory') {
+      return (
+        <div>
+        <LibraryHeader backToList={this.backToList}  />
+        <LibraryStory story={this.state.currentStory} />
+        </div>
+    )}
   }
 }
 

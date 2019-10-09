@@ -16,6 +16,12 @@ class RoomList extends Component {
                     href="#">
                     publish
                 </a>
+                <a
+                    style={{color: 'white'}}
+                    onClick={() => this.props.goHome()}
+                    href="#">
+                    go Back
+                </a>
                 <h3>Your rooms:</h3>
                     {Object.entries(this.props.roomTest).map(room => {
                       console.log("ORDERED ROOM: ", room[1].name);

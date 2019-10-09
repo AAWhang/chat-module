@@ -17,7 +17,7 @@ class ChatScreen extends Component {
       roomId: null,
       joinableRooms: [],
       joinedRooms: {},
-      publish: ''
+      publish: ""
     }
       this.sendMessage = this.sendMessage.bind(this)
       this.sendTypingEvent = this.sendTypingEvent.bind(this)
@@ -41,8 +41,14 @@ class ChatScreen extends Component {
   }
 
   publish() {
-    this.state.publish = '';
-    this.state.messages.map(x => this.state.publish += x.text + '\n')
+    this.state.publish = "";
+    this.state.messages.map(x => this.state.publish += x.text + "\n")
+    let output = {
+      title: "test",
+      tags: ["test"],
+      body: this.state.publish
+    }
+    this.props.addStory(output)
     console.log(this.state.publish)
     console.log(this.state.currentUser)
     console.log("user.roomStore.rooms: ",this.state.currentUser.roomStore.rooms);
@@ -200,7 +206,9 @@ class ChatScreen extends Component {
             roomTest={this.state.joinedRooms}
             // rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
             roomId={this.state.roomId}
-            publish={this.publish} />
+            publish={this.publish}
+            goHome={this.props.goHome}
+            />
           </aside>
           <section style={styles.chatListContainer}>
             <MessageList
