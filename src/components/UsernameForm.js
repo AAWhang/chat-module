@@ -32,6 +32,11 @@ class UsernameForm extends Component {
             />
             <input type="submit" />
           </form>
+          <a
+              onClick={() => this.props.toLibrary()}
+              href="#">
+              to Archive
+          </a>
         </div>
       </div>
     )
