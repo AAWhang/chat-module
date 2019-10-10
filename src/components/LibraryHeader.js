@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class LibraryHeader extends Component {
 render() {
   return (
-    <div>
+    <div style={{backgroundColor: '#F5F5F5', padding: '1%'}}>
       <a
           onClick={() => this.props.backToList()}
           href="#">

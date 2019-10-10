@@ -9,6 +9,8 @@ class RoomList extends Component {
         const orderedRooms = this.props.rooms
         return (
             <div className="rooms-list">
+            <hr />
+            <br />
             <li>
               <a
                   style={{color: 'white'}}
@@ -25,6 +27,9 @@ class RoomList extends Component {
                   go Back
               </a>
             </li>
+              <br />
+              <hr />
+              <br />
                 <ul>
                 <h3>Your rooms:</h3>
                     {Object.entries(this.props.roomTest).map(room => {
@@ -36,7 +41,7 @@ class RoomList extends Component {
                                     style={{color: 'white'}}
                                     onClick={() => this.props.subscribeToRoom(room[1].id)}
                                     href="#">
-                                    # {room[1].name} {room[1].id}
+                                    * {room[1].name}
                                 </a>
                             </li>
                         )

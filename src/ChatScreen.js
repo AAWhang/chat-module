@@ -45,7 +45,7 @@ class ChatScreen extends Component {
     this.state.publish = "";
     this.state.messages.map(x => this.state.publish += x.text + "\n")
     let output = {
-      title: "test",
+      title: "Presentation Room",
       tags: ["test"],
       body: this.state.publish
     }
@@ -132,7 +132,7 @@ class ChatScreen extends Component {
       .then(currentUser => {
         this.setState({ currentUser })
           return currentUser.subscribeToRoom({
-            roomId: "c515ec83-95cc-48e3-9e5c-5cc654d04087",
+            roomId: "3d11208e-5a66-49ae-8720-9c68bf0f9f5e",
             messageLimit: 100,
             hooks: {
               onMessage: message => {
