@@ -9,6 +9,12 @@ render() {
           href="#">
           List
       </a>
+      <br />
+      <a
+          onClick={() => this.props.goHome()}
+          href="#">
+          Home
+      </a>
     </div>
   )
 }

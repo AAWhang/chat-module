@@ -6,6 +6,7 @@ import TypingIndicator from './components/TypingIndicator'
 import WhosOnlineList from './components/WhosOnlineList'
 import RoomList from './components/RoomList'
 
+
 class ChatScreen extends Component {
   constructor(props) {
     super(props)

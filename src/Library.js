@@ -33,14 +33,14 @@ class StoryLibrary extends Component {
     if (this.state.bodyScreen === 'libraryList') {
         return (
           <div>
-          <LibraryHeader backToList={this.backToList} />
+          <LibraryHeader backToList={this.backToList} goHome={this.props.goHome}/>
           <LibraryList stoLib={this.props.SLibrary} setStory={this.setStory} />
           </div>
       )}
     else if (this.state.bodyScreen === 'libraryStory') {
       return (
         <div>
-        <LibraryHeader backToList={this.backToList}  />
+        <LibraryHeader backToList={this.backToList} goHome={this.props.goHome} />
         <LibraryStory story={this.state.currentStory} />
         </div>
     )}

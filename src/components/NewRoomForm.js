@@ -24,7 +24,10 @@ class NewRoomForm extends React.Component {
     }
 
     render () {
+
+      }
         return (
+          <div style={styles.container}>
             <div className="new-room-form">
                 <form onSubmit={this.handleSubmit}>
                     <input
@@ -34,10 +37,11 @@ class NewRoomForm extends React.Component {
                         placeholder="Create a room"
                         required />
                     <button id="create-room-btn" type="submit">+</button>
-            </form>
-        </div>
-        )
-    }
+                </form>
+              </div>
+            </div>
+            )
+          }
 }
 
 export default NewRoomForm

@@ -20,18 +20,39 @@ class UsernameForm extends Component {
   }
 
   render() {
+    const styles = {
+      body: {
+        backgroundColor: '#AAAAFF'
+      },
+      container: {
+        width:'400px',
+        height: '100vh',
+        marginLeft: '40%',
+        padding: '20px',
+        backgroundColor: '#F0F0F0'
+      },
+      title: {
+        align: 'center'
+      }
+    }
     return (
-      <div>
-        <div>
-          <h2>What is your username?</h2>
+      <div style={styles.body}>
+        <div style={styles.container}>
+          <h1>Stories We Tell</h1>
+          <br />
+          <hr />
+          <br />
+          <h3>What is your username?</h3>
+          <br />
           <form onSubmit={this.onSubmit}>
             <input
               type="text"
-              placeholder="Your full name"
+              placeholder="abc1"
               onChange={this.onChange}
             />
             <input type="submit" />
           </form>
+          <br />
           <a
               onClick={() => this.props.toLibrary()}
               href="#">

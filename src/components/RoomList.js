@@ -9,19 +9,23 @@ class RoomList extends Component {
         const orderedRooms = this.props.rooms
         return (
             <div className="rooms-list">
+            <li>
+              <a
+                  style={{color: 'white'}}
+                  onClick={() => this.props.publish()}
+                  href="#">
+                  publish
+              </a>
+            </li>
+            <li>
+              <a
+                  style={{color: 'white'}}
+                  onClick={() => this.props.goHome()}
+                  href="#">
+                  go Back
+              </a>
+            </li>
                 <ul>
-                <a
-                    style={{color: 'white'}}
-                    onClick={() => this.props.publish()}
-                    href="#">
-                    publish
-                </a>
-                <a
-                    style={{color: 'white'}}
-                    onClick={() => this.props.goHome()}
-                    href="#">
-                    go Back
-                </a>
                 <h3>Your rooms:</h3>
                     {Object.entries(this.props.roomTest).map(room => {
                       console.log("ORDERED ROOM: ", room[1].name);
